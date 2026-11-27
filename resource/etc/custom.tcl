@@ -1,0 +1,17 @@
+proc on_btn_clicked {bid id} {
+  set nb [new_btn $id {my button} [list {on_btn_clicked} $bid $id]]
+  return [list [wm_loc $id [$bid cget -text]] $id [wm title $id] $nb]
+}
+
+proc new_btn {id t c} {
+  global num
+  set bid [expr {"$id.mybtn_$num"}]
+  ttk::button $bid -text [expr {"${t}_$num"}] -command $c
+  # must match append style pack/grid on the parent
+  # pack $bid -padx 10 -pady 10
+  grid $bid -column 0 -padx 10 -pady 10
+  set num [expr {$num + 1}]
+  return $bid
+}
+
+set num 0

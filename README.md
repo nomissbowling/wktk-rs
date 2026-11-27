@@ -1,7 +1,7 @@
 wktk-rs
 =======
 
-wktk is widgets management tools for Rust rstk
+tcl/tk worker for Rust rstk
 
 
 Links
