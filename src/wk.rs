@@ -6,6 +6,23 @@ use rstk::*;
 
 use std::{result::Result, error::Error};
 
+/// trait TkPlaceLayout
+pub trait TkPlaceLayout: TkWidget {
+  /// place (not resize parent: ask_safely (wm geometry ...) or (wm_size ...))
+  fn place(&self, x: i32, y: i32) {
+    rstk::tell_wish(&format!("place {} -x {} -y {}", self.id(), x, y));
+  }
+
+  /// place configure (tk options: -relx -rely -width -height -anchor etc)
+  /// (not resize parent: ask_safely (wm geometry ...) or (wm_size ...))
+  fn place_configure(&self, args: &str) {
+    rstk::tell_wish(&format!("place {} {}", self.id(), args));
+  }
+}
+
+/// impl trait TkPlaceLayout for all TkWidget
+impl<T: TkWidget> TkPlaceLayout for T {}
+
 /// downloader
 /// - likes resource/dl_image.tcl
 pub fn downloader(lbl: &str, im: &str, uri: &str) ->

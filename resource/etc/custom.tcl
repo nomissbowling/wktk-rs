@@ -9,7 +9,8 @@ proc new_btn {id t c} {
   ttk::button $bid -text [expr {"${t}_$num"}] -command $c
   # must match append style pack/grid on the parent
   # pack $bid -padx 10 -pady 10
-  grid $bid -column 0 -padx 10 -pady 10
+  # grid $bid -column 0 -padx 10 -pady 10
+  place $bid -x [expr {6 * $num + 16}] -y [expr {4 * $num + 16}]
   set num [expr {$num + 1}]
   return $bid
 }

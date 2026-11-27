@@ -1,7 +1,7 @@
 //! core
 //!
 
-use crate::wk;
+use crate::wk::{self, TkPlaceLayout};
 use rstk::*;
 
 use std::{result::Result, error::Error};
@@ -94,10 +94,10 @@ pub fn rstk_test(rt: &TkTopLevel, t: &str) -> Result<(), Box<dyn Error>> {
 
   let btn = wk::mk_button_with_id(&w, ".mybtn");
   btn.text(p);
-  btn.grid().layout();
+  btn.place(4, 4); // btn.grid().layout();
   let lbl = wk::mk_label_with_id(&w, ".mylbl");
   lbl.text(t);
-  lbl.grid().layout();
+  lbl.place_configure("-relx 0.1 -rely 0.0"); // lbl.grid().layout();
 
 //  let title = t.to_string(); // to keep lifetime (used w finialy before move)
   btn.clone().command(move || { // must clone btn before move
