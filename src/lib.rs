@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/wktk/0.0.2")]
+#![doc(html_root_url = "https://docs.rs/wktk/0.0.3")]
 //! wktk
 //!
 //! Cargo test with [-- --nocapture] or with [-- --show-output]

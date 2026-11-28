@@ -15,7 +15,14 @@ console eval {
     global ::filetypes_source ::open_file_title
     set file [tk_getOpenFile -parent . -title $::open_file_title \
       -filetypes $::filetypes_source]
-    if {$file ne {}} { uplevel #0 [list source -encoding utf-8 $file] }
+    if {$file ne {}} {
+      # run on console
+      uplevel #0 [list source -encoding utf-8 $file]
+      # to run on wish (uplevel #0 [...] run outside of proc: same as global)
+      # consoleinterp eval [list uplevel #0 [list source -encoding utf-8 $file]]
+      # to run on wish (auto uplevel #0 [...] same as above)
+      # consoleinterp eval [list source -encoding utf-8 $file]
+    }
   }
 
   # define for wish

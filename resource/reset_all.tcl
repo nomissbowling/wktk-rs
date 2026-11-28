@@ -9,6 +9,12 @@ proc reset_all {t} {
   # font delete {*}[font names]
   ### safely
   foreach f [font names] { if {![string match {Tk*} $f]} { font delete $f } }
+
+  ### check package (only already loaded)
+  # lsort [package names]
+  ### check all package (include not yet loaded) search by require dummy_name
+  # catch {package require nonexistent}
+  # lsort [package names]
 }
 
 # delete namespace to_be_deleted: ::app_namespace

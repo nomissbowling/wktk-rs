@@ -8,6 +8,47 @@ proc idchild {id c} {
   return [expr {"${w}${c}"}]
 }
 
+proc num_suffix {str} {
+  if {[regexp {^(.*?)(\d+)$} $str -> prefix num]} {
+    scan $num %d val ;# scan as decimal to avoid fetch 0NNN as octal number
+    return [list $val $num $prefix]
+  } else {
+    return [list]
+  }
+}
+
+proc increment_suffix {str pad} {
+  set lst [num_suffix $str]
+  if {[llength $lst] > 0} {
+    lassign $lst val num prefix
+    incr val
+    set len [string length $num]
+    if {$pad} { set val [format "%0${len}d" $val] }
+    return "${prefix}${val}"
+  } else {
+    return "${str}_1"
+  }
+}
+
+if 0 {
+  # set new_history_id [history nextid] ;# number of command
+  # set new_id [increment_suffix [lindex [winfo children .] end] 1]
+  puts [increment_suffix "item_9" 0]   ;# item_10
+  puts [increment_suffix "test005" 0]  ;# test6
+  puts [increment_suffix "sample" 0]   ;# sample1
+  puts [increment_suffix "item_009" 1] ;# item_010
+  puts [increment_suffix "item_099" 1] ;# item_100
+  puts [increment_suffix "file_1" 1]   ;# file_2
+}
+
+proc mk_id_from_last_child {id} {
+  set s [lindex [winfo children $id] end]
+  set lst [num_suffix $s]
+  set n [expr { [llength $lst] > 0 ? [lindex $lst 0] : 0 }]
+  incr n
+  return [list [increment_suffix $s 1] $n]
+}
+
 proc wm_size {id w h} {
   wm withdraw $id
   wm geometry $id ${w}x${h}
